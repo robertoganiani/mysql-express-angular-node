@@ -23,7 +23,7 @@ export class AuthService {
             // .map(res => res.json())
             .map((res) => {
                 if (res.status === 200) {
-                    localStorage.setItem('loggedUser', res._body);
+                    localStorage.setItem('loggedUser', res["_body"]);
                     this.loggedIn = true;
                     console.log(res);
                 }

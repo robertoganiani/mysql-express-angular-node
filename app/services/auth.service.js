@@ -25,7 +25,7 @@ var AuthService = (function () {
             .post('/user/login', JSON.stringify({ username: username, password: password }), { headers: headers })
             .map(function (res) {
             if (res.status === 200) {
-                localStorage.setItem('loggedUser', res._body);
+                localStorage.setItem('loggedUser', res["_body"]);
                 _this.loggedIn = true;
                 console.log(res);
             }
