@@ -9,10 +9,10 @@ import {UserService} from "../services/user.service";
             <h1>Welcome Username</h1>
             <div *ngIf="areSomeUsers">
                 <ul *ngFor="let user of users">
-                    <li>ID: {{user.id}}</li>
-                    <li>Name: {{user.name}}</li>
-                    <li>Age: {{user.age}}</li>
-                    <li>City: {{user.city}}</li>
+                    <h2>Name: {{ user.name }}</h2>
+                    <li>ID: {{ user.id }}</li>
+                    <li>Age: {{ user.age }}</li>
+                    <li>City: {{ user.city }}</li>
                 </ul>
             </div>
             <button (click)="getUsers()" class="btn btn-lg btn-success btn-block" type="submit">Get Users</button>
