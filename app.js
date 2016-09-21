@@ -10,7 +10,7 @@ let app = express();
 app.use(bodyParser.urlencoded({extended: true}));
 app.use(bodyParser.json());
 app.use(express.static(__dirname + '/'));
-app.use(expressJWT({ secret: 'needToBeSecure' }).unless({ path: ['/user/login'] }));
+app.use(expressJWT({ secret: 'needToBeSecure' }).unless({ path: ['/user/login', '/user/register'] }));
 
 connection.init();
 routes.configure(app);

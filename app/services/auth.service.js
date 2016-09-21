@@ -15,12 +15,15 @@ var AuthService = (function () {
     function AuthService(http) {
         this.http = http;
         this.loggedIn = false;
+        this.username = "username";
         this.loggedIn = !!localStorage.getItem('loggedUser');
     }
     AuthService.prototype.login = function (username, password) {
         var _this = this;
+        this.username = username;
         var headers = new http_1.Headers();
         headers.append('Content-Type', 'application/json');
+        this.loggedIn = true;
         return this.http
             .post('/user/login', JSON.stringify({ username: username, password: password }), { headers: headers })
             .map(function (res) {
@@ -38,6 +41,12 @@ var AuthService = (function () {
     };
     AuthService.prototype.isLoggedIn = function () {
         return this.loggedIn;
+    };
+    AuthService.prototype.register = function (username, password) {
+        var headers = new http_1.Headers();
+        headers.append('Content-Type', 'application/json');
+        return this.http
+            .post('/user/register', JSON.stringify({ username: username, password: password }), { headers: headers });
     };
     AuthService = __decorate([
         core_1.Injectable(), 

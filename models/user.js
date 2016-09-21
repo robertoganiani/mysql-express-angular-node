@@ -12,6 +12,8 @@ class User {
         });
     };
 
+// ---------------------------------------------------------------------------------------------------------------------
+
     createUser(user, res) {
         connection.acquire((err, con) => {
             con.query('INSERT into users set ?', user, (err, result) => {
@@ -24,7 +26,9 @@ class User {
             });
         });
     };
-    
+
+// ---------------------------------------------------------------------------------------------------------------------
+
     update(user, res) {
         connection.acquire((err, con) => {
             con.query('update users set ? WHERE id = ?', [user, user.id], (err, result) => {
@@ -37,6 +41,8 @@ class User {
             });
         });
     };
+
+// ---------------------------------------------------------------------------------------------------------------------
 
     delete(id, res) {
         connection.acquire((err, con) => {
@@ -51,18 +57,31 @@ class User {
         });
     };
 
+// ---------------------------------------------------------------------------------------------------------------------
+
     createAdmin(admin, res) {
-        connection.acquire((err, con) => {
-            con.query('INSERT into admins set ?', admin, (err, result) => {
-                con.release();
-                if (err) {
-                    res.send({status: 1, message: 'ADMIN creation failed'});
-                } else {
-                    res.send({status: 0, message: 'ADMIN created successfully'});
-                }
+            connection.acquire((err, con) => {
+                con.query('SELECT * FROM admins WHERE username = ?', [admin.username],(err, result) => {
+                    con.release();
+                    if (result.length == 0) {
+                        connection.acquire((err, con) => {
+                            con.query('INSERT into admins set ?', admin, (err, result) => {
+                                con.release();
+                                if (err) {
+                                    res.send({status: 1, message: 'ADMIN creation failed'});
+                                } else {
+                                    res.send({status: 0, message: 'ADMIN created successfully'});
+                                }
+                            });
+                        });
+                    } else {
+                        res.status(201).send({status: 1, message: 'USERNAME already taken'});
+                    }
+                });
             });
-        });
     };
+
+// ---------------------------------------------------------------------------------------------------------------------
 
     adminLogin(req, res) {
         connection.acquire((err, con) => {

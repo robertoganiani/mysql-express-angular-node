@@ -23,8 +23,35 @@ var UserService = (function () {
         // console.log(headers);
         var options = new http_1.RequestOptions({ headers: headers });
         // console.log(options);
-        return this.http.get('/user/', options)
+        return this.http
+            .get('/user', options)
             .map(function (response) { return response.json(); });
+    };
+    UserService.prototype.addUser = function (id, name, age, city) {
+        var token = localStorage.getItem('loggedUser');
+        var headers = new http_1.Headers({ 'Authorization': 'Bearer ' + token });
+        headers.append('Content-Type', 'application/json');
+        var options = new http_1.RequestOptions({ headers: headers });
+        return this.http
+            .post('/user/add', JSON.stringify({ id: id, name: name, age: age, city: city }), options)
+            .map(function (response) { return response.json(); });
+    };
+    UserService.prototype.editUser = function (id, name, age, city) {
+        var token = localStorage.getItem('loggedUser');
+        var headers = new http_1.Headers({ 'Authorization': 'Bearer ' + token });
+        headers.append('Content-Type', 'application/json');
+        return this.http
+            .put('/user', JSON.stringify({ id: id, name: name, age: age, city: city }), { headers: headers })
+            .map(function (res) { return res.json(); });
+    };
+    UserService.prototype.deleteUser = function (id) {
+        // console.log(id);
+        var token = localStorage.getItem('loggedUser');
+        var headers = new http_1.Headers({ 'Authorization': 'Bearer ' + token });
+        headers.append('Content-Type', 'application/json');
+        return this.http
+            .delete('/user/' + id, { headers: headers })
+            .map(function (res) { return res.json(); });
     };
     UserService = __decorate([
         core_1.Injectable(), 

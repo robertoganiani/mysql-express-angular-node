@@ -17,13 +17,14 @@ var home_component_1 = require("./home/home.component");
 var services_module_1 = require("./services/services.module");
 var forms_1 = require("@angular/forms");
 var http_1 = require("@angular/http");
+var register_component_1 = require("./register/register.component");
 var AppModule = (function () {
     function AppModule() {
     }
     AppModule = __decorate([
         core_1.NgModule({
             imports: [platform_browser_1.BrowserModule, forms_1.FormsModule, http_1.HttpModule, app_routes_1.default, services_module_1.ServicesModule.forRoot()],
-            declarations: [app_component_1.AppComponent, login_component_1.LoginComponent, home_component_1.HomeComponent],
+            declarations: [app_component_1.AppComponent, login_component_1.LoginComponent, home_component_1.HomeComponent, register_component_1.RegisterComponent],
             bootstrap: [app_component_1.AppComponent]
         }), 
         __metadata('design:paramtypes', [])
